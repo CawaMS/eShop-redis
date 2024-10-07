@@ -1,7 +1,12 @@
 ﻿using eShop_API.Data;
+using eShop_API.Helpers;
 using eShop_API.Interfaces;
 using eShop_API.Models;
+using Microsoft.ApplicationInsights.DataContracts;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Hybrid;
+using Microsoft.IdentityModel.Tokens;
 
 namespace eShop_API.Services
 {
@@ -35,6 +40,52 @@ namespace eShop_API.Services
 
             return product;
             
+        }
+
+        public async Task AddProduct(Product product)
+        {
+            _context.Add(product);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteProduct(int productId)
+        {
+            if (_context.Product == null)
+            {
+                throw new Exception("Item not found");
+            }
+            var product = await _context.Product.FindAsync(productId);
+            if (product != null)
+            {
+                _context.Product.Remove(product);
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateProduct(Product product)
+        {
+            try
+            {
+                _context.Update(product);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ProductExists(product.Id))
+                {
+                    throw new Exception("Item not found");
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
+
+        private bool ProductExists(int id)
+        {
+            return (_context.Product?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
     }

@@ -36,8 +36,9 @@ namespace eShop_API.Controllers
 
         // POST api/<ProductsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task Post([FromBody] Product product)
         {
+            await _productService.AddProduct(product);
         }
 
         // PUT api/<ProductsController>/5

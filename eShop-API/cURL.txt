@@ -1,0 +1,1 @@
+curl -i -X POST https://localhost:7076/api/products -H "Content-Type: application/json" -d "{\"name\": \"Sample Product\",\"price\": 99.99, \"brand\": \"Sample Brand\", \"image\": \"sample-image-url\", \"category\": \"Sample Category\", \"description\": \"Sample Description\"}"
