@@ -15,7 +15,7 @@ public class eShopContextSeed
         {
             if (eShopContext.Database.IsSqlServer())
             {
-                eShopContext.Database.Migrate();
+               // eShopContext.Database.Migrate();
             }
             if (!await eShopContext.Product.AnyAsync())
             {

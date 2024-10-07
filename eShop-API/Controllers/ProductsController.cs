@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using eShop_API.Data;
+using eShop_API.Interfaces;
+using eShop_API.Models;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,18 +11,27 @@ namespace eShop_API.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        private readonly eShopContext _context;
+        private readonly IProductService _productService;
+
+        public ProductsController(eShopContext context, IProductService productService)
+        {
+            _context = context;
+            _productService = productService;
+        }
+
         // GET: api/<ProductsController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<List<Product>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return await _productService.GetAllProductsAsync();
         }
 
         // GET api/<ProductsController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<Product?> Get(int id)
         {
-            return "value";
+            return await _productService.GetProductByIdAsync(id);
         }
 
         // POST api/<ProductsController>

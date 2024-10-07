@@ -8,15 +8,15 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace eShop.Services
+namespace eShop_API.Services
 {
-    public class CartServiceCache : ICartService
+    public class CartService : ICartService
     {
         private readonly IDistributedCache _cache;
         private readonly TelemetryClient _telemetryClient;
 
 
-        public CartServiceCache(IDistributedCache cache, TelemetryClient telemetryClient)
+        public CartService(IDistributedCache cache, TelemetryClient telemetryClient)
         {
             _cache = cache;
             _telemetryClient = telemetryClient;
