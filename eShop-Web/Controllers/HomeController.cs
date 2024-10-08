@@ -1,14 +1,25 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using eShop_Web.ViewModels;
+using System.ComponentModel;
+using eShop_Web.ApiClients;
 
 namespace eShop_Web.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: HomeController
-        public ActionResult Index()
+        private ProductsApiClient _productsApiClient;
+
+        public HomeController(ProductsApiClient productsApiClient)
         {
-            return View();
+            _productsApiClient = productsApiClient;
+        }
+
+        // GET: HomeController
+        public async Task<IActionResult> Index()
+        {
+            List<Product> pList = await _productsApiClient.GetAllProductsAsync();
+            return View(pList);
         }
 
         // GET: HomeController/Details/5
