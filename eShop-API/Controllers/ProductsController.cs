@@ -43,14 +43,16 @@ namespace eShop_API.Controllers
 
         // PUT api/<ProductsController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async void Put([FromBody] Product product)
         {
+            await _productService.UpdateProduct(product);
         }
 
         // DELETE api/<ProductsController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _productService.DeleteProduct(id);
         }
     }
 }
