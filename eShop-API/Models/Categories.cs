@@ -3,6 +3,7 @@
     public enum Categories
     {
         Purse,
-        Shoes
+        Shoes,
+        Test
     }
 }

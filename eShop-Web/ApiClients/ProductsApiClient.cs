@@ -11,6 +11,15 @@ namespace eShop_Web.ApiClients
             var products = await response.Content.ReadFromJsonAsync<List<Product>>();
             return products;
         }
+
+        public async Task<List<Product>> GetProductsByCategoryAsync(string category)
+        {
+            var response = await httpClient.GetAsync($"api/Products/Category/{category}");
+            response.EnsureSuccessStatusCode();
+            var products = await response.Content.ReadFromJsonAsync<List<Product>>();
+            return products;
+        }
+
         public async Task<Product?> GetProductByIdAsync(int productId)
         {
             var response = await httpClient.GetAsync($"api/Products/{productId}");

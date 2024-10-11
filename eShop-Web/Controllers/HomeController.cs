@@ -18,8 +18,12 @@ namespace eShop_Web.Controllers
         // GET: HomeController
         public async Task<IActionResult> Index()
         {
-            List<Product> pList = await _productsApiClient.GetAllProductsAsync();
-            return View(pList);
+            // List<Product> pList = await _productsApiClient.GetAllProductsAsync();
+            List<Product> shoeList = await _productsApiClient.GetProductsByCategoryAsync("Shoes");
+            List<Product> purseList = await _productsApiClient.GetProductsByCategoryAsync("Purse");
+
+            shoeList.AddRange(purseList);
+            return View(shoeList);
         }
 
         // GET: HomeController/Details/5

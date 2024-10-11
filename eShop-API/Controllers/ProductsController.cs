@@ -27,6 +27,12 @@ namespace eShop_API.Controllers
             return await _productService.GetAllProductsAsync();
         }
 
+        [HttpGet("Category/{category}")]
+        public async Task<List<Product>> GetProductsByCategory(string category)
+        {
+            return await _productService.GetProductsByCategoryAsync(category);
+        }
+
         // GET api/<ProductsController>/5
         [HttpGet("{id}")]
         public async Task<Product?> Get(int id)
